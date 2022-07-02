@@ -1,7 +1,6 @@
 package helper
 
 import (
-	"crypto/tls"
 	"path/filepath"
 	"testing"
 	"time"
@@ -34,10 +33,6 @@ func Destroy(t *testing.T, releaseName string, options *helm.Options) {
 // Verify server function
 func Verify(t *testing.T, status int, url string, bodyw string, retries int) {
 	sleep := 4 * time.Second
-	// test
-	tlsConfig := &tls.Config{}
-	tlsConfig.Certificates = make([]tls.Certificate, 1)
-	//
 	http_helper.HttpGetWithRetryWithCustomValidation(
 		t,
 		url,
