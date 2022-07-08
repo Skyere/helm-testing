@@ -31,7 +31,7 @@ func Destroy(t *testing.T, releaseName string, options *helm.Options) {
 }
 
 // Verify server function
-func Verify(t *testing.T, status int, url string, bodyw string, retries int) {
+func Verify(t *testing.T, status int, url string, bodyw string, retries int) bool {
 	sleep := 4 * time.Second
 	http_helper.HttpGetWithRetryWithCustomValidation(
 		t,
