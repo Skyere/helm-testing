@@ -31,9 +31,6 @@ func Destroy(t *testing.T, releaseName string, options *helm.Options) {
 }
 
 // Verify server function
-// func Verify(t *testing.T, status int, url string, bodyw string, retries int) bool {
-// }
-
 func Verify(status int, url string, bodyw string, retries int) func(t *testing.T) {
 	return func(t *testing.T) {
 		sleep := 4 * time.Second
