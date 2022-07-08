@@ -31,18 +31,25 @@ func Destroy(t *testing.T, releaseName string, options *helm.Options) {
 }
 
 // Verify server function
-func Verify(t *testing.T, status int, url string, bodyw string, retries int) bool {
-	sleep := 4 * time.Second
-	return http_helper.HttpGetWithRetryWithCustomValidation(
-		t,
-		url,
-		nil,
-		retries,
-		sleep,
-		func(statusCode int, body string) bool {
-			isOk := statusCode == 200
-			isBackEnd := assert.Contains(t, body, bodyw)
-			return isOk && isBackEnd
-		},
-	)
+// func Verify(t *testing.T, status int, url string, bodyw string, retries int) bool {
+// }
+
+func Verify(status int, url string, bodyw string, retries int) func(t *testing.T) {
+	return func(t *testing.T) {
+		sleep := 4 * time.Second
+		http_helper.HttpGetWithRetryWithCustomValidation(
+			t,
+			url,
+			nil,
+			retries,
+			sleep,
+			func(statusCode int, body string) bool {
+				isOk := statusCode == 200
+				isBackEnd := assert.Contains(t, body, bodyw)
+				return isOk && isBackEnd
+			},
+		)
+		
+	}
+
 }
