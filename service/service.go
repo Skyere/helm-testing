@@ -21,7 +21,7 @@ func ServiceCheck(serviceName string, releaseName string, kubectlOptions *k8s.Ku
 	}
 }
 
-func GetServiceEndpoint(serviceName string, releaseName string, servicePort int, kubectlOptions *k8s.KubectlOptions, t *testing.T) string {
+func GetServiceEndpoint(t *testing.T, serviceName string, releaseName string, servicePort int, kubectlOptions *k8s.KubectlOptions) string {
 	service := fmt.Sprintf("%s-%s", releaseName, serviceName)
 	serviceInfo := k8s.GetService(t, kubectlOptions, service)
 	return k8s.GetServiceEndpoint(t, kubectlOptions, serviceInfo, servicePort)
